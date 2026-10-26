@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" href="./icon-180.png" />
 <link rel="manifest" href="./manifest.webmanifest" />
 <title>Drive Genius AI GPS Voice</title>
-  <script type="module" crossorigin src="./a/Dzv3nPWu.js"></script>
-  <link rel="stylesheet" crossorigin href="./a/R0WS5ROO.css">
+  <script type="module" crossorigin src="./a/BWra7yyp.js"></script>
+  <link rel="stylesheet" crossorigin href="./a/B3JvQiPM.css">
 </head>
 <body>
 <div id="map"></div>
@@ -42,6 +42,10 @@
   <div id="speed"><b id="speedV">0</b><small>χλμ/ώ</small></div>
 </div>
 
+<button id="sosBtn" class="sos" aria-label="Έκτακτη ανάγκη">SOS</button>
+<button id="micBtn" class="mic" aria-label="AI συνοδηγός — πατήστε και κρατήστε για ομιλία"><svg viewBox="0 0 24 24" width="30" height="30"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V22h2v-3.08A7 7 0 0 0 19 12h-2z"/></svg></button>
+<div id="asBubble" hidden></div>
+<div id="compass" hidden><div id="cArrow">➤</div><div id="cDist"></div><small id="cNote"></small><button id="cClose" class="chip">✕</button></div>
 <div id="fabs">
   <button id="locBtn" class="fab" aria-label="Η θέση μου">◎</button>
   <button id="viewBtn" class="fab" aria-label="Προβολή 2D/3D">3D</button>
@@ -55,6 +59,9 @@
   <div id="sheetRoute" hidden>
     <div class="sum"><b id="rTime"></b> <span id="rDist"></span></div>
     <div id="rTolls" class="small"></div>
+    <div id="rCost" class="small"></div>
+    <div id="rWx" class="small"></div>
+    <div id="rFerry"></div>
     <div id="rLimits" class="small muted"></div>
     <label class="small"><input type="checkbox" id="avoidTolls" /> Αποφυγή διοδίων</label>
     <div class="row"><button id="startBtn" class="primary">▶ Ξεκίνα</button><button id="simBtn">Δοκιμή διαδρομής</button><button id="cancelBtn">✕</button></div>
@@ -77,6 +84,24 @@
   <button class="close">Άκυρο</button>
 </dialog>
 
+<dialog id="crashDlg" class="crash">
+  <h2>⚠️ <span id="crashN">30</span></h2>
+  <p id="crashMsg">Εντοπίστηκε πιθανή σύγκρουση. Είστε καλά;</p>
+  <a id="crashCall" class="btn danger big call112" href="tel:112">📞 Κλήση 112</a>
+  <button id="crashOk" class="primary big">✅ Είμαι καλά</button>
+  <div id="crashAfter" hidden>
+    <div id="crashSend" class="crashSend"></div>
+    <pre id="crashText" class="small"></pre>
+  </div>
+  <button id="crashMute" class="btn">🔇 Σίγαση συναγερμού</button>
+  <p class="small muted">Βοήθημα, όχι εγγύηση. Το iPhone/ο browser δεν επιτρέπουν αυτόματη κλήση ή SMS — πατήστε εσείς ή όποιος βρίσκεται κοντά.</p>
+</dialog>
+<dialog id="aiDlg">
+  <h3>🤖 Ερωτήσεις AI — συγκατάθεση</h3>
+  <p class="small">Οι εντολές (πλησιέστερο πρατήριο, πόσο μένει, πρόστιμα, πινακίδες, 112 κ.λπ.) λειτουργούν <b>στη συσκευή</b>. Για <b>ελεύθερες ερωτήσεις</b>, το <b>κείμενο της ερώτησης</b> και αποσπάσματα του επίσημου οδηγού ΚΟΚ στέλνονται στον server της Drive Genius και από εκεί στην <b>Groq, Inc. (ΗΠΑ)</b> για απάντηση.</p>
+  <p class="small">Δεν στέλνεται θέση, όνομα ή άλλο προσωπικό στοιχείο. Μην λέτε προσωπικά δεδομένα. Οι απαντήσεις είναι ενημερωτικές· ισχύει ο ΚΟΚ και η σήμανση. Ανάκληση οποτεδήποτε στις Ρυθμίσεις.</p>
+  <div class="row"><button id="aiYes" class="primary">Συμφωνώ</button><button id="aiNo">Όχι</button></div>
+</dialog>
 <dialog id="panel"><div id="panelBody"></div><button class="close">Κλείσιμο</button></dialog>
 
 <dialog id="welcome">
