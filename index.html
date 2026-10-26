@@ -1,0 +1,95 @@
+<!doctype html>
+<!-- © 2026 Ελευθέριος Ζωγράφος — Drive Genius AI GPS Voice. Σήματα ΟΒΙ N299400, N301340. Με επιφύλαξη παντός δικαιώματος. -->
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+<meta name="theme-color" content="#0b1220" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="author" content="Ελευθέριος Ζωγράφος" />
+<meta name="copyright" content="© 2026 Ελευθέριος Ζωγράφος" />
+<meta name="description" content="Drive Genius AI GPS Voice — δωρεάν πλοήγηση με ελληνική φωνή, όρια ταχύτητας και ΚΟΚ." />
+<link rel="icon" href="./logo.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="./icon-180.png" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<title>Drive Genius AI GPS Voice</title>
+  <script type="module" crossorigin src="./a/C8El6PpH.js"></script>
+  <link rel="stylesheet" crossorigin href="./a/R0WS5ROO.css">
+</head>
+<body>
+<div id="map"></div>
+
+<header id="top">
+  <button id="menuBtn" class="logo" aria-label="Μενού"><img src="./logo.svg" alt="G" /></button>
+  <form id="searchForm" autocomplete="off">
+    <input id="q" type="search" enterkeyhint="search" placeholder="Πού πάμε;" aria-label="Προορισμός" />
+    <button id="goSearch" type="submit" aria-label="Αναζήτηση">🔍</button>
+  </form>
+</header>
+<ul id="results" hidden></ul>
+
+<section id="banner" hidden>
+  <div id="bIcon">⬆</div>
+  <div class="bTxt"><div id="bDist"></div><div id="bInstr"></div></div>
+</section>
+<div id="tip" hidden><div id="tipTxt"></div><small id="tipRef"></small></div>
+<div id="toast" hidden></div>
+
+<div id="speedBox" hidden>
+  <div id="limit" title="Όριο ταχύτητας"><span id="limitV">–</span></div>
+  <div id="limitSrc"></div>
+  <div id="speed"><b id="speedV">0</b><small>χλμ/ώ</small></div>
+</div>
+
+<div id="fabs">
+  <button id="locBtn" class="fab" aria-label="Η θέση μου">◎</button>
+  <button id="viewBtn" class="fab" aria-label="Προβολή 2D/3D">3D</button>
+</div>
+
+<section id="sheet">
+  <div id="sheetIdle">
+    <div class="row"><button id="parkBtn" class="chip">🅿️ Πού πάρκαρα</button><button id="hazBtn0" class="chip">⚠️ Αναφορά</button><button id="tollTblBtn" class="chip">💶 Διόδια</button></div>
+    <p class="muted small" id="gpsNote">Γράψε προορισμό και πάτα 🔍.</p>
+  </div>
+  <div id="sheetRoute" hidden>
+    <div class="sum"><b id="rTime"></b> <span id="rDist"></span></div>
+    <div id="rTolls" class="small"></div>
+    <div id="rLimits" class="small muted"></div>
+    <label class="small"><input type="checkbox" id="avoidTolls" /> Αποφυγή διοδίων</label>
+    <div class="row"><button id="startBtn" class="primary">▶ Ξεκίνα</button><button id="simBtn">Δοκιμή διαδρομής</button><button id="cancelBtn">✕</button></div>
+  </div>
+  <div id="sheetNav" hidden>
+    <div class="sum"><b id="nEta"></b> · <span id="nRem"></span> · <span id="nTime"></span></div>
+    <div id="nToll" class="small"></div>
+    <div class="row"><button id="hazBtn" class="chip">⚠️ Αναφορά</button><button id="muteBtn" class="chip">🔊</button><button id="stopBtn" class="chip danger">Τέλος</button></div>
+  </div>
+</section>
+
+<dialog id="hazDlg">
+  <h3>Αναφορά κινδύνου</h3>
+  <p class="small muted">Αποθηκεύεται μόνο σε αυτή τη συσκευή.</p>
+  <div class="grid3">
+    <button data-hz="pothole">🕳️<br />Λακκούβα</button>
+    <button data-hz="accident">💥<br />Τροχαίο</button>
+    <button data-hz="works">🚧<br />Έργα</button>
+  </div>
+  <button class="close">Άκυρο</button>
+</dialog>
+
+<dialog id="panel"><div id="panelBody"></div><button class="close">Κλείσιμο</button></dialog>
+
+<dialog id="welcome">
+  <img src="./logo.svg" alt="" width="64" height="64" />
+  <h2>Drive Genius AI GPS Voice</h2>
+  <p><b>Ασφάλεια πρώτα.</b> Ο οδηγός ακολουθεί πάντα την πραγματική σήμανση και τον ΚΟΚ. Τα όρια ταχύτητας και τα διόδια είναι ενδεικτικά.</p>
+  <p class="small caps">YOUR USE OF THIS REAL TIME ROUTE GUIDANCE APPLICATION IS AT YOUR SOLE RISK. LOCATION DATA MAY NOT BE ACCURATE.</p>
+  <label><input type="checkbox" id="holderOk" /> Το κινητό θα είναι σε βάση στήριξης και δεν θα το χειρίζομαι ενώ οδηγώ (ΚΟΚ).</label>
+  <label><input type="checkbox" id="termsOk" /> Αποδέχομαι τους <a href="#" data-open="about">Όρους Χρήσης & Πολιτική Απορρήτου</a>.</label>
+  <button id="welcomeOk" class="primary" disabled>Συνέχεια</button>
+  <p class="small muted">© 2026 Ελευθέριος Ζωγράφος · ΟΒΙ N299400 · N301340</p>
+</dialog>
+
+<a id="attrib" href="#" data-open="about">© OpenStreetMap · Πηγές</a>
+</body>
+</html>
