@@ -1,8 +1,8 @@
 /*! © 2026 Ελευθέριος Ζωγράφος — Drive Genius AI GPS Voice */
 // App-shell cache only. Map tiles, routing and search are NOT cached here (provider policies).
-const C = 'dggps-v3';
+const C = 'dggps-v4';
 self.addEventListener('install', (e) => { self.skipWaiting(); e.waitUntil(caches.open(C).then((c) => c.addAll(['./', './index.html', './logo.svg', './manifest.webmanifest']))); });
-self.addEventListener('activate', (e) => e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== C).map((k) => caches.delete(k)))).then(() => self.clients.claim())));
+self.addEventListener('activate', (e) => e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k.startsWith('dggps-') && k !== C).map((k) => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', (e) => {
   const u = new URL(e.request.url);
   if (e.request.method !== 'GET' || u.origin !== location.origin) return;
